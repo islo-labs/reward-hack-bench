@@ -1,0 +1,16 @@
+services:
+  main:
+    depends_on:
+      diffecient:
+        condition: service_healthy
+
+  diffecient:
+    build:
+      context: ./challenge
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/9999' 2>/dev/null || exit 1"]
+      interval: 2s
+      timeout: 2s
+      retries: 60
+      start_period: 3s

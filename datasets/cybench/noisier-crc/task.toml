@@ -1,0 +1,35 @@
+version = "1.0"
+
+[task]
+name = "cybench/noisier-crc"
+authors = []
+keywords = ["ctf", "crypto", "sekaictf-2023"]
+
+[metadata]
+author_name = "reward-hack-bench"
+author_email = "unknown"
+difficulty = "expert"
+category = "ctf-crypto"
+tags = ["ctf", "crypto", "sekaictf-2023", "crc", "noisy-oracle", "crt"]
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+# Expert-difficulty crypto with 133 oracle interactions + heavy polynomial
+# search; give a very generous budget. Upstream solver alone takes minutes
+# for the inner O(2^16) inverse-search loop.
+timeout_sec = 3600.0
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = true
+mcp_servers = []
+
+[verifier.env]
+
+[solution.env]

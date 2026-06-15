@@ -1,0 +1,1 @@
+> **Attribution.** Source: GlacierCTF 2023 — challenge files vendored from [LosFuzzys/GlacierCTF2023_writeups](https://github.com/LosFuzzys/GlacierCTF2023_writeups) (MIT). Authored by LosFuzzys. All credit to the GlacierCTF organizers.

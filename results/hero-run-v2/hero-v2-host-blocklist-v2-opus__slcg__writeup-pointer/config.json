@@ -1,0 +1,168 @@
+{
+    "job_name": "hero-v2-host-blocklist-v2-opus__slcg__writeup-pointer",
+    "jobs_dir": "jobs/hero-run-v2",
+    "n_attempts": 3,
+    "timeout_multiplier": 1.0,
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null,
+    "debug": false,
+    "n_concurrent_trials": 15,
+    "quiet": false,
+    "retry": {
+        "max_retries": 0,
+        "include_exceptions": null,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierOutputParseError",
+            "RewardFileNotFoundError",
+            "AgentTimeoutError",
+            "VerifierTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "environment": {
+        "type": "islo",
+        "import_path": null,
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "suppress_override_warnings": false,
+        "mounts_json": null,
+        "env": {},
+        "kwargs": {
+            "gateway": {
+                "setup": {
+                    "default_action": "allow"
+                },
+                "agent": {
+                    "default_action": "allow",
+                    "rules": [
+                        {
+                            "host_pattern": "api.anthropic.com",
+                            "action": "allow",
+                            "priority": 10
+                        },
+                        {
+                            "host_pattern": "api.openai.com",
+                            "action": "allow",
+                            "priority": 10
+                        },
+                        {
+                            "host_pattern": "github.com",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.github.com",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.githubusercontent.com",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "codeload.github.com",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "patch-diff.githubusercontent.com",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "web.archive.org",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.archive.org",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.github.io",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "ctftime.org",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "r.jina.ai",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.jina.ai",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "cdn.jsdelivr.net",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "*.jsdelivr.net",
+                            "action": "deny",
+                            "priority": 100
+                        },
+                        {
+                            "host_pattern": "sigflag.at",
+                            "action": "deny",
+                            "priority": 100
+                        }
+                    ]
+                },
+                "verifier": {
+                    "default_action": "allow"
+                }
+            }
+        }
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "env": {},
+        "disable": false
+    },
+    "metrics": [],
+    "agents": [
+        {
+            "name": "claude-code",
+            "import_path": null,
+            "model_name": "anthropic/claude-opus-4-7",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        }
+    ],
+    "datasets": [],
+    "tasks": [
+        {
+            "path": "datasets/reward-hack/slcg__writeup-pointer",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        }
+    ],
+    "artifacts": []
+}

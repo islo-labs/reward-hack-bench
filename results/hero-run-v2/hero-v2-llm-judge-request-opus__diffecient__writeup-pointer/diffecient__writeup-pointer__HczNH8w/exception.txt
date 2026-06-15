@@ -1,0 +1,147 @@
+Traceback (most recent call last):
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 42, in wrapper
+    return await fn(self, instruction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/claude_code.py", line 1144, in run
+    await self.exec_as_agent(
+    ...<10 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 366, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 313, in _exec
+    result = await environment.exec(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/environments/islo.py", line 1022, in exec
+    return await self._compose_main_exec(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        command, effective_cwd, merged_env, timeout_sec, user
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/environments/islo.py", line 1008, in _compose_main_exec
+    return await self._compose_exec(parts, timeout_sec=timeout_sec)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/environments/islo.py", line 650, in _compose_exec
+    return await self._sandbox_exec(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/environments/islo.py", line 955, in _sandbox_exec
+    result = await exec_and_wait(
+             ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/environments/_islo_exec_patched.py", line 69, in exec_and_wait
+    result = await client.sandboxes.get_exec_result(sandbox_name, exec_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/islo/sandboxes/client.py", line 2313, in get_exec_result
+    _response = await self._raw_client.get_exec_result(sandbox_name, exec_id, request_options=request_options)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/islo/sandboxes/raw_client.py", line 4193, in get_exec_result
+    _response = await self._client_wrapper.httpx_client.request(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/islo/core/http_client.py", line 674, in request
+    response = await self.httpx_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_client.py", line 1643, in send
+    raise exc
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_client.py", line 1637, in send
+    await response.aread()
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_models.py", line 979, in aread
+    self._content = b"".join([part async for part in self.aiter_bytes()])
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_models.py", line 997, in aiter_bytes
+    async for raw_bytes in self.aiter_raw():
+    ...<2 lines>...
+            yield chunk
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_models.py", line 1055, in aiter_raw
+    async for raw_stream_bytes in self.stream:
+    ...<2 lines>...
+            yield chunk
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_client.py", line 176, in __aiter__
+    async for chunk in self._stream:
+        yield chunk
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpx/_transports/default.py", line 271, in __aiter__
+    async for part in self._httpcore_stream:
+        yield part
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/connection_pool.py", line 407, in __aiter__
+    raise exc from None
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/connection_pool.py", line 403, in __aiter__
+    async for part in self._stream:
+        yield part
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/http11.py", line 342, in __aiter__
+    raise exc
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/http11.py", line 334, in __aiter__
+    async for chunk in self._connection._receive_response_body(**kwargs):
+        yield chunk
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/http11.py", line 203, in _receive_response_body
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/httpcore/_backends/anyio.py", line 35, in read
+    return await self._stream.receive(max_bytes=max_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/anyio/streams/tls.py", line 239, in receive
+    data = await self._call_sslobject_method(self._ssl_object.read, max_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/anyio/streams/tls.py", line 182, in _call_sslobject_method
+    data = await self.transport_stream.receive()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/anyio/_backends/_asyncio.py", line 1284, in receive
+    await self._protocol.read_event.wait()
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 373, in _execute_agent
+    await asyncio.wait_for(
+    ...<6 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/tasks.py", line 487, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/timeouts.py", line 114, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 969, in run
+    await self._execute_agent()
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 382, in _execute_agent
+    raise AgentTimeoutError(
+        f"Agent execution timed out after {self._agent_timeout_sec} seconds"
+    ) from e
+harbor.trial.trial.AgentTimeoutError: Agent execution timed out after 1800.0 seconds

@@ -1,0 +1,17 @@
+# Retry of hero-open-opus pytest-6202: 1 of 3 original attempts errored
+# with "Download failed" during agent setup. Just need 1 more attempt
+# to close the cell.
+
+environment:
+  type: islo
+
+job_name: hero-open-opus__pytest-6202__upstream-fix__retry
+n_attempts: 1
+n_concurrent_trials: 1
+
+agents:
+  - name: claude-code
+    model_name: anthropic/claude-opus-4-7
+
+tasks:
+  - path: datasets/reward-hack/pytest-6202__upstream-fix

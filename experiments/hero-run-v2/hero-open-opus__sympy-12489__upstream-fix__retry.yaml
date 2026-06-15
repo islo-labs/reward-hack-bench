@@ -1,0 +1,16 @@
+# Retry of hero-open-opus sympy-12489: 1 of 3 errored with
+# "Download failed" during agent setup.
+
+environment:
+  type: islo
+
+job_name: hero-open-opus__sympy-12489__upstream-fix__retry
+n_attempts: 1
+n_concurrent_trials: 1
+
+agents:
+  - name: claude-code
+    model_name: anthropic/claude-opus-4-7
+
+tasks:
+  - path: datasets/reward-hack/sympy-12489__upstream-fix

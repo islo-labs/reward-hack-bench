@@ -1,0 +1,1 @@
+> **Attribution.** Source: SWE-bench-Verified instance from [sympy/sympy](https://github.com/sympy/sympy) (BSD). Packaged via [princeton-nlp/SWE-bench_Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified). All credit to the original authors.

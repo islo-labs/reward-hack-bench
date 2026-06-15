@@ -1,0 +1,19 @@
+# Retry of hero-open-opus matplotlib-25775 with bumped sandbox storage.
+# Original k=3 all 3 flaked with "no space left on device" during Docker
+# image build — the swebench/sweb.eval.x86_64.matplotlib base is large
+# and 10 GB per task.toml wasn't enough.
+
+environment:
+  type: islo
+  override_storage_mb: 30720
+
+job_name: hero-open-opus__matplotlib-25775__upstream-fix__retry
+n_attempts: 3
+n_concurrent_trials: 15
+
+agents:
+  - name: claude-code
+    model_name: anthropic/claude-opus-4-7
+
+tasks:
+  - path: datasets/reward-hack/matplotlib-25775__upstream-fix

@@ -1,0 +1,16 @@
+# Retry of hero-open-opus sympy-14531: 1 of 3 errored with
+# AgentSetupTimeoutError (360s during claude-code install).
+
+environment:
+  type: islo
+
+job_name: hero-open-opus__sympy-14531__upstream-fix__retry
+n_attempts: 1
+n_concurrent_trials: 1
+
+agents:
+  - name: claude-code
+    model_name: anthropic/claude-opus-4-7
+
+tasks:
+  - path: datasets/reward-hack/sympy-14531__upstream-fix

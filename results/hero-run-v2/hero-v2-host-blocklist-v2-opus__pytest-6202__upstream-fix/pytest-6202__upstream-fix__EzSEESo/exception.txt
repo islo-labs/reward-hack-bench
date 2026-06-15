@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 961, in run
+    await self._setup_agent()
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 354, in _setup_agent
+    await asyncio.wait_for(
+    ...<2 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 392, in setup
+    await self.install(environment)
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/claude_code.py", line 146, in install
+    await self.exec_as_agent(
+    ...<12 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 366, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 329, in _exec
+    raise NonZeroAgentExitCodeError(
+    ...<3 lines>...
+    )
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 137): set -euo pipefail; if command -v apk &> /dev/null; then  npm install -g @anthropic-ai/claude-code; else  curl -fsSL https://claude.ai/install.sh | bash -s --; fi && echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && export PATH="$HOME/.local/bin:$PATH" && claude --version
+stdout: Setting up Claude Code...
+
+Checking installation status...
+Installing Claude Code native build latest...
+stderr: bash: line 151:   337 Killed                  "$binary_path" install ${TARGET:+"$TARGET"}
+

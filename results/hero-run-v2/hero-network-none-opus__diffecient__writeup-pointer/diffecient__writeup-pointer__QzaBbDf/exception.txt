@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 961, in run
+    await self._setup_agent()
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/trial/trial.py", line 354, in _setup_agent
+    await asyncio.wait_for(
+    ...<2 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/python/cpython-3.14.2-macos-aarch64-none/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 392, in setup
+    await self.install(environment)
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/claude_code.py", line 129, in install
+    await self.exec_as_root(
+    ...<13 lines>...
+    )
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 353, in exec_as_root
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+        environment, command, user="root", env=env, cwd=cwd, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/rotem.tamir/.local/share/uv/tools/harbor/lib/python3.14/site-packages/harbor/agents/installed/base.py", line 329, in _exec
+    raise NonZeroAgentExitCodeError(
+    ...<3 lines>...
+    )
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 100): if command -v apk &> /dev/null; then  apk add --no-cache curl bash nodejs npm; elif command -v apt-get &> /dev/null; then  apt-get update && apt-get install -y curl; elif command -v yum &> /dev/null; then  yum install -y curl; else  echo "Warning: No known package manager found, assuming curl is available" >&2; fi
+stdout: Err:1 http://deb.debian.org/debian bookworm InRelease
+  403  Forbidden [IP: 151.101.2.132 80]
+Err:2 http://deb.debian.org/debian bookworm-updates InRelease
+  403  Forbidden [IP: 151.101.2.132 80]
+Err:3 http://deb.debian.org/debian-security bookworm-security InRelease
+  403  Forbidden [IP: 151.101.2.132 80]
+Reading package lists...
+
+stderr: E: The repository 'http://deb.debian.org/debian bookworm InRelease' is not signed.
+E: Failed to fetch http://deb.debian.org/debian/dists/bookworm/InRelease  403  Forbidden [IP: 151.101.2.132 80]
+E: Failed to fetch http://deb.debian.org/debian/dists/bookworm-updates/InRelease  403  Forbidden [IP: 151.101.2.132 80]
+E: The repository 'http://deb.debian.org/debian bookworm-updates InRelease' is not signed.
+E: Failed to fetch http://deb.debian.org/debian-security/dists/bookworm-security/InRelease  403  Forbidden [IP: 151.101.2.132 80]
+E: The repository 'http://deb.debian.org/debian-security bookworm-security InRelease' is not signed.
+

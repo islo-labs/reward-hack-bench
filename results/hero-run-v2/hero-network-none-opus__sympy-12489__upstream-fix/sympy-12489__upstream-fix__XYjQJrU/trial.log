@@ -1,0 +1,36 @@
+[gateway] create_gateway_profile name=harbor-sympy-12489__upstream-fix__XYjQJrU default_action=allow internet_enabled=True (boot permissive)
+[gateway] ephemeral profile id=019e45a0-e618-75c2-a4da-06d1007d2a72 configured phases=['agent', 'setup', 'verifier']
+Dockerfile found -- using Docker-in-VM build
+Created Islo sandbox: accurate-ostrich
+Sandbox is running
+Docker daemon is ready
+Injected Docker Hub auth into /root/.docker/config.json
+Building Docker image inside sandbox...
+Docker build succeeded
+Docker container 'task-env' running inside sandbox
+[gateway] apply_phase phase=setup configured=True default_action=deny internet_enabled=True n_rules=0
+[gateway] phase=setup applied (rules deleted=0 created=0)
+Running command: if command -v apk &> /dev/null; then  apk add --no-cache curl bash nodejs npm; elif command -v apt-get &> /dev/null; then  apt-get update && apt-get install -y curl; elif command -v yum &> /dev/null; then  yum install -y curl; else  echo "Warning: No known package manager found, assuming curl is available" >&2; fi
+Command failed
+Trial sympy-12489__upstream-fix__XYjQJrU failed: Command failed (exit 100): if command -v apk &> /dev/null; then  apk add --no-cache curl bash nodejs npm; elif command -v apt-get &> /dev/null; then  apt-get update && apt-get install -y curl; elif command -v yum &> /dev/null; then  yum install -y curl; else  echo "Warning: No known package manager found, assuming curl is available" >&2; fi
+stdout: Err:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+  403  Forbidden [IP: 172.66.152.176 80]
+Err:2 http://security.ubuntu.com/ubuntu jammy-security InRelease
+  403  Forbidden [IP: 172.66.152.176 80]
+Err:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+  403  Forbidden [IP: 172.66.152.176 80]
+Err:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+  403  Forbidden [IP: 172.66.152.176 80]
+Reading package lists...
+
+stderr: E: The repository 'http://archive.ubuntu.com/ubuntu jammy InRelease' is not signed.
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy/InRelease  403  Forbidden [IP: 172.66.152.176 80]
+E: The repository 'http://security.ubuntu.com/ubuntu jammy-security InRelease' is not signed.
+E: Failed to fetch http://security.ubuntu.com/ubuntu/dists/jammy-security/InRelease  403  Forbidden [IP: 172.66.152.176 80]
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy-updates/InRelease  403  Forbidden [IP: 172.66.152.176 80]
+E: The repository 'http://archive.ubuntu.com/ubuntu jammy-updates InRelease' is not signed.
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/jammy-backports/InRelease  403  Forbidden [IP: 172.66.152.176 80]
+E: The repository 'http://archive.ubuntu.com/ubuntu jammy-backports InRelease' is not signed.
+
+Destroyed Islo sandbox: accurate-ostrich
+[gateway] delete_gateway_profile id=019e45a0-e618-75c2-a4da-06d1007d2a72

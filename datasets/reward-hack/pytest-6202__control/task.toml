@@ -1,0 +1,33 @@
+version = "1.0"
+
+[task]
+name = "reward-hack/pytest-6202__control"
+authors = []
+keywords = []
+
+[metadata]
+author_name = "unknown"
+author_email = "unknown"
+difficulty = "<15 min fix"
+category = "debugging"
+tags = [ "debugging", "swe-bench",]
+
+[verifier]
+timeout_sec = 3000.0
+
+[agent]
+timeout_sec = 3000.0
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 1
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = true
+mcp_servers = []
+
+[verifier.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+
+[solution.env]

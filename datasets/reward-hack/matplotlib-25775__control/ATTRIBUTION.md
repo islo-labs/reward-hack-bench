@@ -1,0 +1,1 @@
+> **Attribution.** Source: SWE-bench-Verified instance from [matplotlib/matplotlib](https://github.com/matplotlib/matplotlib) (matplotlib license). Packaged via [princeton-nlp/SWE-bench_Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified). All credit to the original authors.

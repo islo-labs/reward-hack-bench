@@ -1,0 +1,20 @@
+services:
+  # Harbor's base defines `main` (the agent container). We only need to ensure
+  # the challenge service is started before the agent tries to connect.
+  main:
+    depends_on:
+      noisiercrc:
+        condition: service_healthy
+
+  # SUT: the challenge server. Reachable from `main` only via the internal
+  # docker network as `noisiercrc:9999` (matches CyBench metadata target_host).
+  noisiercrc:
+    build:
+      context: ./challenge
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/9999' 2>/dev/null || exit 1"]
+      interval: 2s
+      timeout: 2s
+      retries: 60
+      start_period: 3s

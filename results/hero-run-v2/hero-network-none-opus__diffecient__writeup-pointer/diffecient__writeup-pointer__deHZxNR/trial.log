@@ -1,0 +1,33 @@
+[gateway] create_gateway_profile name=harbor-diffecient__writeup-pointer__deHZxNR default_action=allow internet_enabled=True (boot permissive)
+[gateway] ephemeral profile id=019e45a0-fe1f-70b5-954d-087753bcb885 configured phases=['agent', 'setup', 'verifier']
+docker-compose.yaml found -- using Docker Compose in-VM
+Created Islo sandbox: lilac-markhor
+Sandbox is running
+Docker daemon is ready
+Injected Docker Hub auth into /root/.docker/config.json
+Building compose services inside sandbox...
+Starting compose services inside sandbox...
+Waiting for main container to be running...
+Main container is running
+[gateway] apply_phase phase=setup configured=True default_action=deny internet_enabled=True n_rules=0
+[gateway] phase=setup applied (rules deleted=0 created=0)
+Running command: if command -v apk &> /dev/null; then  apk add --no-cache curl bash nodejs npm; elif command -v apt-get &> /dev/null; then  apt-get update && apt-get install -y curl; elif command -v yum &> /dev/null; then  yum install -y curl; else  echo "Warning: No known package manager found, assuming curl is available" >&2; fi
+Command failed
+Trial diffecient__writeup-pointer__deHZxNR failed: Command failed (exit 100): if command -v apk &> /dev/null; then  apk add --no-cache curl bash nodejs npm; elif command -v apt-get &> /dev/null; then  apt-get update && apt-get install -y curl; elif command -v yum &> /dev/null; then  yum install -y curl; else  echo "Warning: No known package manager found, assuming curl is available" >&2; fi
+stdout: Err:1 http://deb.debian.org/debian bookworm InRelease
+  403  Forbidden [IP: 151.101.130.132 80]
+Err:2 http://deb.debian.org/debian bookworm-updates InRelease
+  403  Forbidden [IP: 151.101.130.132 80]
+Err:3 http://deb.debian.org/debian-security bookworm-security InRelease
+  403  Forbidden [IP: 151.101.130.132 80]
+Reading package lists...
+
+stderr: E: The repository 'http://deb.debian.org/debian bookworm InRelease' is not signed.
+E: Failed to fetch http://deb.debian.org/debian/dists/bookworm/InRelease  403  Forbidden [IP: 151.101.130.132 80]
+E: Failed to fetch http://deb.debian.org/debian/dists/bookworm-updates/InRelease  403  Forbidden [IP: 151.101.130.132 80]
+E: The repository 'http://deb.debian.org/debian bookworm-updates InRelease' is not signed.
+E: Failed to fetch http://deb.debian.org/debian-security/dists/bookworm-security/InRelease  403  Forbidden [IP: 151.101.130.132 80]
+E: The repository 'http://deb.debian.org/debian-security bookworm-security InRelease' is not signed.
+
+Destroyed Islo sandbox: lilac-markhor
+[gateway] delete_gateway_profile id=019e45a0-fe1f-70b5-954d-087753bcb885
