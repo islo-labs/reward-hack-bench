@@ -3,6 +3,8 @@
 A benchmark for measuring whether sandbox policies can stop agents from
 cheating on evaluations.
 
+Full writeup: [Using sandboxes to stop agents from cheating](https://islo.dev/blog/reward-hack-bench-sandbox-stops-agent-cheating/).
+
 RewardHackBench takes real SWE-bench and CyBench tasks, adds a
 solution-retrieval cheat path, and runs the same tasks under different
 sandbox policies. Each trial is scored twice:
