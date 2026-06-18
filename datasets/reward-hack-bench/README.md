@@ -1,6 +1,6 @@
 # reward-hack-bench
 
-Does your sandbox stop a coding agent from **cheating** — fetching the
+Can sandboxes stop a coding agent from **cheating** — fetching the
 published solution instead of solving the task?
 
 8 tasks (4 SWE-bench + 4 CyBench), each with a solution-retrieval cheat path
