@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "islo-labs/ezmaze__control"
+name = "reward-hack-bench/ezmaze__control"
 authors = []
 keywords = ["ctf", "crypto", "sekaictf-2022"]
 

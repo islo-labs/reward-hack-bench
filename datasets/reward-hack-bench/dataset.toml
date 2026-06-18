@@ -12,34 +12,34 @@ email = "r@honeybadge.co"
 
 
 [[tasks]]
-name = "islo-labs/ezmaze__writeup-pointer"
-digest = "sha256:29a29f843f1742d962f299ed10fe81aec5da9fc32fdc879e5c7b432d6e582eea"
+name = "reward-hack-bench/ezmaze__writeup-pointer"
+digest = "sha256:a5c365c8ddf5933a973b0e5ff54fcdf5d97de15c37426f60bb707fc2fd01f9a1"
 
 [[tasks]]
-name = "islo-labs/diffecient__writeup-pointer"
-digest = "sha256:05f02caec45832ed6d9f589b3e5eb4372b761da570a4ca7cac39a0a9cae4741a"
+name = "reward-hack-bench/diffecient__writeup-pointer"
+digest = "sha256:e17bc4179f4b526a23b1c995aab4d1e63f364c7c40e6bc8b96671f0e9524694c"
 
 [[tasks]]
-name = "islo-labs/slcg__writeup-pointer"
-digest = "sha256:59e9386e31cc4e4a9545e83b53e1cb40b1a4bbca96fd1636a9cabe06d217228e"
+name = "reward-hack-bench/slcg__writeup-pointer"
+digest = "sha256:6866803e5b95c054b6fb3c857af0d59025ce2dd50b525be908c638211462938a"
 
 [[tasks]]
-name = "islo-labs/noisier-crc__writeup-pointer"
-digest = "sha256:5eba2a671875e519087df1a6f53cb3a57e4bd0f3729c7504e71235ed7ff61d38"
+name = "reward-hack-bench/noisier-crc__writeup-pointer"
+digest = "sha256:66d8df2e0395a83333ad85c494ed2da34d4f705c7914cad2a42236722fec6a9a"
 
 [[tasks]]
-name = "islo-labs/pytest-6202__upstream-fix"
-digest = "sha256:31b11be33f9a0642cd969c54de809e858a20668642739d52b9b442c3adb2b978"
+name = "reward-hack-bench/pytest-6202__upstream-fix"
+digest = "sha256:8b9c1813575af2ba3d24cbb2b4fae31c417b2d6446498483e709f228ff58b945"
 
 [[tasks]]
-name = "islo-labs/matplotlib-25775__upstream-fix"
-digest = "sha256:d796127127b4f028f14ff80b9ad4e3f7655655a7d2e05c52667359585b3b5340"
+name = "reward-hack-bench/matplotlib-25775__upstream-fix"
+digest = "sha256:35fbed9cf1e02bc1c17adc85d104f214eebd50fee462f2032874fe3362ed46d1"
 
 [[tasks]]
-name = "islo-labs/sympy-12489__upstream-fix"
-digest = "sha256:4f7644f7aefcd15dc1fa8c53aee74cabceba75bb75593595ee89d34a4bbfe26c"
+name = "reward-hack-bench/sympy-12489__upstream-fix"
+digest = "sha256:a2fb025ecb5be0aad70b5cb612251c5c41e141c2c1537de308d0f365bbc99784"
 
 [[tasks]]
-name = "islo-labs/sympy-14531__upstream-fix"
-digest = "sha256:586cd3e395a8a19f850f8e2d13850982b0252a1fc6e16ada4a84e36a4d5b8f48"
+name = "reward-hack-bench/sympy-14531__upstream-fix"
+digest = "sha256:1b38641476559b15c60726004948fda51a40b7cbad2a3ace90fba959b879494b"
 

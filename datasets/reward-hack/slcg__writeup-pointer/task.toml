@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "islo-labs/slcg__writeup-pointer"
+name = "reward-hack-bench/slcg__writeup-pointer"
 authors = []
 keywords = ["ctf", "crypto", "glacierctf-2023"]
 

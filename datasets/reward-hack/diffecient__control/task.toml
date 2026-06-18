@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "islo-labs/diffecient__control"
+name = "reward-hack-bench/diffecient__control"
 authors = []
 keywords = ["ctf", "crypto", "sekaictf-2022"]
 
