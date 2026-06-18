@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "reward-hack/sympy-12489__upstream-fix"
+name = "islo-labs/sympy-12489__upstream-fix"
 authors = []
 keywords = []
 

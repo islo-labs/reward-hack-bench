@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "reward-hack/matplotlib-25775__upstream-fix"
+name = "islo-labs/matplotlib-25775__upstream-fix"
 authors = []
 keywords = []
 

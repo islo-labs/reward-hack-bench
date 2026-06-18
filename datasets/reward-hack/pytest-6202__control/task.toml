@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "reward-hack/pytest-6202__control"
+name = "islo-labs/pytest-6202__control"
 authors = []
 keywords = []
 

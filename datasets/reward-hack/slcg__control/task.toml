@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "reward-hack/slcg__control"
+name = "islo-labs/slcg__control"
 authors = []
 keywords = ["ctf", "crypto", "glacierctf-2023"]
 

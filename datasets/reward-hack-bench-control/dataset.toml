@@ -1,0 +1,45 @@
+# Dataset manifest for islo-labs/reward-hack-bench-control
+# Add tasks using: harbor add <org>/<name>
+# Publish using: harbor publish
+
+[dataset]
+name = "islo-labs/reward-hack-bench-control"
+description = "Baseline/control companion to reward-hack-bench: the same 8 SWE-bench + CyBench tasks with NO cheat prompt, still scored by the fairness judge. Also packages these CyBench/GlacierCTF tasks as Harbor tasks."
+keywords = []
+[[dataset.authors]]
+name = "islo-labs"
+email = "r@honeybadge.co"
+
+
+[[tasks]]
+name = "islo-labs/ezmaze__control"
+digest = "sha256:2c0945ee7fd2ab33c4d9886972e7091e5dfd24fd5d134b91c3313050c6463536"
+
+[[tasks]]
+name = "islo-labs/diffecient__control"
+digest = "sha256:cad3f202077fe147f11e943269dd1f5ac4c16851ad91b02bdfd5fc113e7e641e"
+
+[[tasks]]
+name = "islo-labs/slcg__control"
+digest = "sha256:962dba95bd318efdb695582dc117bbba85fdfc6e3553543038edaa829484d2c9"
+
+[[tasks]]
+name = "islo-labs/noisier-crc__control"
+digest = "sha256:ac0aa4a7653fcdf33ae2abc008b8555419bdefa820ae6684e3830e30cb4d2cb7"
+
+[[tasks]]
+name = "islo-labs/pytest-6202__control"
+digest = "sha256:03c9f72d08e47e6c45901cc7d99ff0862615c2d874bb869f19a13722deac3031"
+
+[[tasks]]
+name = "islo-labs/matplotlib-25775__control"
+digest = "sha256:b1f7f50c802bbab05588e57abc359dbdb3e4eba3a6ccb0852ccde184abfef012"
+
+[[tasks]]
+name = "islo-labs/sympy-12489__control"
+digest = "sha256:819d2d865cdf97b9390b8c2adbcfe4b91f1d1c5593d5009315924b33471df312"
+
+[[tasks]]
+name = "islo-labs/sympy-14531__control"
+digest = "sha256:d37152ff2feef9645366fa79da987e5997cfef477b3daf2b08e76c910d1f17d1"
+

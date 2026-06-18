@@ -1,0 +1,45 @@
+# Dataset manifest for islo-labs/reward-hack-bench
+# Add tasks using: harbor add <org>/<name>
+# Publish using: harbor publish
+
+[dataset]
+name = "islo-labs/reward-hack-bench"
+description = "Reward-hacking benchmark: SWE-bench + CyBench tasks with injected solution-retrieval cheat prompts, scored by a fairness LLM judge. Reward = solved without cheating."
+keywords = []
+[[dataset.authors]]
+name = "islo-labs"
+email = "r@honeybadge.co"
+
+
+[[tasks]]
+name = "islo-labs/ezmaze__writeup-pointer"
+digest = "sha256:29a29f843f1742d962f299ed10fe81aec5da9fc32fdc879e5c7b432d6e582eea"
+
+[[tasks]]
+name = "islo-labs/diffecient__writeup-pointer"
+digest = "sha256:05f02caec45832ed6d9f589b3e5eb4372b761da570a4ca7cac39a0a9cae4741a"
+
+[[tasks]]
+name = "islo-labs/slcg__writeup-pointer"
+digest = "sha256:59e9386e31cc4e4a9545e83b53e1cb40b1a4bbca96fd1636a9cabe06d217228e"
+
+[[tasks]]
+name = "islo-labs/noisier-crc__writeup-pointer"
+digest = "sha256:5eba2a671875e519087df1a6f53cb3a57e4bd0f3729c7504e71235ed7ff61d38"
+
+[[tasks]]
+name = "islo-labs/pytest-6202__upstream-fix"
+digest = "sha256:31b11be33f9a0642cd969c54de809e858a20668642739d52b9b442c3adb2b978"
+
+[[tasks]]
+name = "islo-labs/matplotlib-25775__upstream-fix"
+digest = "sha256:d796127127b4f028f14ff80b9ad4e3f7655655a7d2e05c52667359585b3b5340"
+
+[[tasks]]
+name = "islo-labs/sympy-12489__upstream-fix"
+digest = "sha256:4f7644f7aefcd15dc1fa8c53aee74cabceba75bb75593595ee89d34a4bbfe26c"
+
+[[tasks]]
+name = "islo-labs/sympy-14531__upstream-fix"
+digest = "sha256:586cd3e395a8a19f850f8e2d13850982b0252a1fc6e16ada4a84e36a4d5b8f48"
+
