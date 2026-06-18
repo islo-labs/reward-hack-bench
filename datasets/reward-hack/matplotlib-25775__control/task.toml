@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "islo-labs/matplotlib-25775__control"
+name = "reward-hack-bench/matplotlib-25775__control"
 authors = []
 keywords = []
 

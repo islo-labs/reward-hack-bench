@@ -1,7 +1,7 @@
 version = "1.0"
 
 [task]
-name = "islo-labs/sympy-14531__control"
+name = "reward-hack-bench/sympy-14531__control"
 authors = []
 keywords = []
 
