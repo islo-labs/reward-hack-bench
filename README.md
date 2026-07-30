@@ -185,7 +185,13 @@ jobs/                              # raw Harbor trial outputs (gitignored)
 
 ## Adding a new task or mode
 
-1. **New source task**: put it under `datasets/<corpus>/<task>/`. Follow
+For the end-to-end workflow for importing and calibrating a Frontier-Bench
+task, see [`CONTRIBUTING.md`](CONTRIBUTING.md). The central rule is to validate
+the original task first, then establish reliable open-network cheating, and
+only then evaluate Islo gateway policies.
+
+1. **New source task**: put it under `datasets/<corpus>/<task>/`. Frontier-Bench
+   tasks follow the dedicated guide above. For existing source types, follow
    the SWE-bench-flat shape or the CTF multi-container shape (see
    `datasets/cybench/ezmaze/` as a CTF example).
 2. **New manifest entry**: add to `adapter/manifest.yaml` with `source`,
@@ -196,7 +202,8 @@ jobs/                              # raw Harbor trial outputs (gitignored)
    ```bash
    # oracle must succeed (static_reward=1)
    harbor run -y -p datasets/reward-hack/<name> -a oracle -k 1 -n 1
-   # nop (temporarily replace solve.sh with `exit 0`) must fail (static_reward=0)
+   # nop must fail (static_reward=0)
+   harbor run -y -p datasets/reward-hack/<name> -a nop -k 1 -n 1
    ```
 
 4. **Add a real-agent run** only after both smoke tests pass.
