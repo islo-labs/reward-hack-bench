@@ -202,15 +202,14 @@ def _trim_trajectory(raw: str, max_bytes: int) -> str:
     )
 
 
-def _load_atif(trajectory_path: Path) -> str:
-    """Read ATIF trajectory.json and serialize as indented JSON for the LLM.
+def _load_atif(raw: str) -> str:
+    """Serialize raw trajectory text as indented JSON for the LLM.
 
-    The file is parsed first to validate shape and re-emitted with indent=2
+    The text is parsed first to validate shape and re-emitted with indent=2
     so the prompt reads naturally. If parsing fails (e.g. an older raw
     streaming dump was passed by mistake), fall back to the raw text — the
     judge prompt explicitly tolerates either shape.
     """
-    raw = trajectory_path.read_text()
     try:
         obj = json.loads(raw)
     except json.JSONDecodeError:
@@ -218,12 +217,69 @@ def _load_atif(trajectory_path: Path) -> str:
     return json.dumps(obj, indent=2, ensure_ascii=False)
 
 
-def run_judge(trajectory_path: Path, config: dict, model: str) -> dict:
+_ORACLE_LOG_FILENAME = "oracle.txt"
+
+
+def _find_oracle_log(trajectory_path: Path) -> Path | None:
+    """Locate Harbor's oracle-agent stdout log next to the expected trajectory.
+
+    Harbor's built-in `oracle` agent runs the task's reference solution
+    script directly and writes only `oracle.txt` (its stdout) into the same
+    `/logs/agent/` directory — it never produces the ATIF `trajectory.json`
+    that every other agent implementation writes. Without this, oracle
+    verifier runs always short-circuit to `trajectory_missing_or_empty` and
+    the fairness judge never actually runs on the pipeline-validation path.
+    """
+    candidate = trajectory_path.parent / _ORACLE_LOG_FILENAME
+    if candidate.exists() and candidate.stat().st_size > 0:
+        return candidate
+    return None
+
+
+def _synthesize_oracle_trajectory(oracle_log: Path) -> str:
+    """Build a minimal ATIF trajectory from the oracle agent's own log.
+
+    This wraps exactly what the oracle did — the stdout of running the
+    task's reference solution script — as a single tool-call step. It
+    fabricates nothing beyond that real output, so the judge sees the same
+    evidence (e.g. files patched) a human reviewer would, without the
+    solution's content being invented or expanded.
+    """
+    trajectory = {
+        "agent": {"name": "oracle", "model_name": "oracle"},
+        "steps": [
+            {
+                "step_id": 0,
+                "source": "system",
+                "message": (
+                    "Harbor's built-in oracle agent ran the task's reference "
+                    "solution script directly. It performs no LLM reasoning "
+                    "and produces no tool-call trace of its own, so this "
+                    "trajectory was synthesized from the oracle's stdout log "
+                    "for fairness-judge evaluation."
+                ),
+            },
+            {
+                "step_id": 1,
+                "source": "agent",
+                "tool_calls": [
+                    {"function_name": "run_reference_solution", "arguments": {}}
+                ],
+                "observation": {
+                    "results": [{"content": oracle_log.read_text()}]
+                },
+            },
+        ],
+    }
+    return json.dumps(trajectory)
+
+
+def run_judge(trajectory_text: str, config: dict, model: str) -> dict:
     # Imported lazily so the script can emit graceful JSON on import failure.
     import anthropic
 
     client = anthropic.Anthropic()
-    raw = _load_atif(trajectory_path)
+    raw = _load_atif(trajectory_text)
     # Soft cap at ~600KB (~150k tokens) to keep single-call latency bounded.
     trajectory = _trim_trajectory(raw, max_bytes=600_000)
     user_prompt = _build_user_prompt(config, trajectory)
@@ -266,10 +322,16 @@ def main() -> None:
     )
     args = ap.parse_args()
 
-    if not args.trajectory.exists() or args.trajectory.stat().st_size == 0:
-        sys.exit(_fail({"fairness": None,
-                        "judge_status": "trajectory_missing_or_empty",
-                        "path": str(args.trajectory)}))
+    if args.trajectory.exists() and args.trajectory.stat().st_size > 0:
+        trajectory_text = args.trajectory.read_text()
+    else:
+        oracle_log = _find_oracle_log(args.trajectory)
+        if oracle_log is None:
+            sys.exit(_fail({"fairness": None,
+                            "judge_status": "trajectory_missing_or_empty",
+                            "path": str(args.trajectory)}))
+        trajectory_text = _synthesize_oracle_trajectory(oracle_log)
+
     if not args.config.exists():
         sys.exit(_fail({"fairness": None,
                         "judge_status": "config_missing",
@@ -284,7 +346,7 @@ def main() -> None:
                         "judge_status": f"config_parse_error: {e}"}))
 
     try:
-        verdict = run_judge(args.trajectory, config, args.model)
+        verdict = run_judge(trajectory_text, config, args.model)
     except Exception as e:
         verdict = {"fairness": None,
                    "judge_status": f"judge_error: {type(e).__name__}: {e}"}

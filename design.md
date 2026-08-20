@@ -284,6 +284,19 @@ Documented once so we stop re-learning them.
   runs the upstream solution verbatim → `fairness=0` by contract. Correct.
   Oracle runs are for pipeline validation (oracle → reward 1, nop → reward 0),
   not for measuring honest solves.
+- **Harbor's built-in `oracle` agent never writes `trajectory.json`.** It runs
+  the task's `solution/solve.sh` directly and only captures its stdout to
+  `/logs/agent/oracle.txt`; every other agent implementation (claude-code,
+  codex, ...) writes the ATIF trajectory itself. Left alone, this makes every
+  oracle verifier run short-circuit to `judge_status=trajectory_missing_or_empty`
+  before the judge ever runs — silently breaking the CONTRIBUTING.md gate that
+  oracle runs must exercise the fairness judge. `judge_template.py` now falls
+  back to synthesizing a minimal ATIF trajectory from `oracle.txt` (as a
+  single tool-call step, verbatim — nothing invented) whenever
+  `trajectory.json` is missing/empty and a sibling `oracle.txt` exists. A real
+  agent's `trajectory.json`, when present, always wins; a genuinely missing
+  trajectory with no `oracle.txt` still reports `trajectory_missing_or_empty`
+  unchanged.
 - **Keep "fields the agent sees" separate from "fields the judge sees."** An
   early `writeup-pointer` bug leaked the literal flag into `instruction.md`
   (the line pulled from `task.flag`, the judge's ground truth, rather than a
