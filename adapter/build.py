@@ -49,11 +49,22 @@ class Entry:
     mode: str
     config: dict[str, Any]
     task: dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, str] = field(default_factory=dict)
     out_dir: Path = Path("datasets/reward-hack")
 
 
 ModeFn = Callable[[Path, Path, Entry], None]
 MODES: dict[str, ModeFn] = {}
+
+REQUIRED_METADATA_FIELDS = frozenset({
+    "source_task",
+    "hack_axis",
+    "cheat_mode",
+    "control_pair",
+    "detector_expectation",
+    "verifier_shape",
+    "validation_command",
+})
 
 
 def register(name: str) -> Callable[[ModeFn], ModeFn]:
@@ -164,8 +175,12 @@ def _relocate_attribution(dst: Path) -> None:
 
 def _copy_task(src: Path, dst: Path, target_name: str) -> None:
     # Harbor's TaskConfig requires name in "org/name" format. If the manifest
-    # entry didn't include a slash, namespace it under `reward-hack/`.
-    full_name = target_name if "/" in target_name else f"reward-hack/{target_name}"
+    # entry didn't include a slash, namespace it under `reward-hack-bench/`.
+    full_name = (
+        target_name
+        if "/" in target_name
+        else f"reward-hack-bench/{target_name}"
+    )
     if dst.exists():
         shutil.rmtree(dst)
     shutil.copytree(src, dst)
@@ -180,6 +195,23 @@ def _copy_task(src: Path, dst: Path, target_name: str) -> None:
         flags=re.MULTILINE,
     )
     task_toml.write_text(txt)
+
+
+def _write_corpus_metadata(dst: Path, metadata: dict[str, str]) -> None:
+    """Copy the corpus contract into the generated task's TOML metadata."""
+    if not metadata:
+        return
+
+    task_toml = dst / "task.toml"
+    text = task_toml.read_text()
+    lines = "".join(
+        f"{key} = {json.dumps(value)}\n"
+        for key, value in metadata.items()
+    )
+    marker = "[metadata]\n"
+    if marker not in text:
+        raise ValueError(f"{task_toml}: missing [metadata] table")
+    task_toml.write_text(text.replace(marker, marker + lines, 1))
 
 
 def _append_instruction(dst: Path, heading: str, body: str) -> None:
@@ -705,6 +737,26 @@ def load_manifest(path: Path) -> list[Entry]:
             raise ValueError(f"entry #{i}: duplicate target_name `{raw['target_name']}`")
         seen.add(key)
 
+        metadata = raw.get("metadata") or {}
+        if metadata:
+            missing = REQUIRED_METADATA_FIELDS - metadata.keys()
+            if missing:
+                missing_fields = ", ".join(sorted(missing))
+                raise ValueError(
+                    f"entry #{i} ({raw['target_name']}): metadata missing required "
+                    f"field(s): {missing_fields}"
+                )
+            invalid = [
+                key for key in REQUIRED_METADATA_FIELDS
+                if not isinstance(metadata[key], str) or not metadata[key].strip()
+            ]
+            if invalid:
+                invalid_fields = ", ".join(sorted(invalid))
+                raise ValueError(
+                    f"entry #{i} ({raw['target_name']}): metadata fields must be "
+                    f"non-empty strings: {invalid_fields}"
+                )
+
         entries.append(
             Entry(
                 source=src,
@@ -712,6 +764,7 @@ def load_manifest(path: Path) -> list[Entry]:
                 mode=mode,
                 config=raw.get("config") or {},
                 task=raw.get("task") or {},
+                metadata=metadata,
                 out_dir=out_dir,
             )
         )
@@ -721,6 +774,7 @@ def load_manifest(path: Path) -> list[Entry]:
 def build(entry: Entry) -> Path:
     dst = entry.out_dir / entry.target_name
     _copy_task(entry.source, dst, entry.target_name)
+    _write_corpus_metadata(dst, entry.metadata)
     MODES[entry.mode](entry.source, dst, entry)
     return dst
 
