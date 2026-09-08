@@ -15,25 +15,33 @@ Do not create or use a Python virtual environment (`.venv`) in this project.
 Harbor is installed globally via `uv tool install`; adapter scripts use
 PEP 723 inline metadata. Avoid `uv sync` / `uv run` against this project.
 
-Harbor must be installed from the **`reward-hack-bench-changeset`** fork
-branch — superset of phased gateway control (PR
-[#1575](https://github.com/harbor-framework/harbor/pull/1575)) that also
-adds first-class docker-compose support inside islo VMs (so multi-
-container CTF tasks finally run under islo):
+Harbor must be installed from the **`reward-hack-bench-changeset-v2`** fork
+branch — current upstream main (0.22.x; includes compose-in-islo and
+backend-agnostic separate-mode verifiers) plus a slim port of the
+phase-keyed raw gateway configs the sweep policies need:
 
 ```bash
 uv tool install --force \
-  --from 'git+https://github.com/islo-labs/harbor-fork@reward-hack-bench-changeset#egg=harbor[islo]' \
+  --from 'git+https://github.com/islo-labs/harbor-fork@reward-hack-bench-changeset-v2#egg=harbor[islo]' \
   harbor
 ```
 
 What this branch gives us:
-- **Compose mode in islo**: `docker-compose.yaml` detection takes priority
-  over Dockerfile; the env spins up Docker Compose inside the islo VM.
-  ezmaze / diffecient / noisier-crc are now islo-runnable.
-- **Phased gateway** (mandatory schema): `gateway: { setup: {...}, agent:
-  {...}, verifier: {...} }`. Flat `default_action`/`rules` at top level is
-  rejected with a migration error.
+- **Compose mode in islo** (upstream PR
+  [#1559](https://github.com/harbor-framework/harbor/pull/1559), carried by
+  the rebase): `docker-compose.yaml` detection takes priority over
+  Dockerfile; the env spins up Docker Compose inside the islo VM.
+  ezmaze / diffecient / noisier-crc are islo-runnable.
+- **Separate-mode verifiers on islo** (upstream machinery + a fork fix):
+  TB3-style tasks with `[verifier] environment_mode = "separate"` run the
+  verifier in a second islo sandbox built from `tests/`. The fork adds a
+  fix so image-baked `/tests` is not shadowed by the VM bind mount.
+- **Phased gateway**: `gateway: { setup: {...}, agent: {...}, verifier:
+  {...} }` — raw per-phase `GatewayConfig`s applied at lifecycle phase
+  transitions, taking precedence over the portable NetworkPolicy
+  conversion. Flat `gateway: {default_action, rules}` stays accepted
+  (upstream behavior); mixing flat and phase keys in one dict is
+  rejected. Unlisted phases default to permissive.
 - **Content-based filtering** per rule:
   ```yaml
   rules:
@@ -47,8 +55,11 @@ What this branch gives us:
   This is the more powerful axis — blocks by response body across hosts,
   mirrors, search-engine caches, etc.
 
-When upstream merges these into harbor-framework/harbor main, switch
-back to `git+https://github.com/harbor-framework/harbor#egg=harbor[islo]`.
+When upstream merges the phase-keyed gateway into harbor-framework/harbor
+main, switch back to
+`git+https://github.com/harbor-framework/harbor#egg=harbor[islo]`.
+(The old `reward-hack-bench-changeset` branch is untouched; the published
+hero-run-v2 results remain reproducible against it.)
 
 PyPI release is too old; bare `harbor` without the `[islo]` extra
 won't load the islo backend.
@@ -114,13 +125,11 @@ policy (0.08).
   (Opus hit its 30-min timeout on ezmaze; same model direct-via-API solved
   in ~6 min). Prefer Haiku 4.5 for CTF-shape crypto tasks; give generous
   `agent.timeout_sec`.
-- **islo multi-container support landed** in the
-  `reward-hack-bench-changeset` harbor branch — `IsloEnvironment` now
-  detects `docker-compose.yaml` and runs Compose inside the VM (priority
-  over Dockerfile). CTF tasks (ezmaze, diffecient, noisier-crc) are
-  islo-runnable on this branch. (Earlier note: the original islo backend
-  ignored `docker-compose.yaml` and only parsed `Dockerfile`. That
-  limitation is gone here.)
+- **islo multi-container support**: upstream's compose-in-VM (PR #1559)
+  is included in the `reward-hack-bench-changeset-v2` branch —
+  `IsloEnvironment` detects `docker-compose.yaml` and runs Compose inside
+  the VM (priority over Dockerfile). CTF tasks (ezmaze, diffecient,
+  noisier-crc) are islo-runnable on this branch.
 - **Public writeup URLs rot.** The hackmd link in SekaiCTF's
   `solution/README.md` is already 404. Verify reachability when adding
   new CTF tasks.

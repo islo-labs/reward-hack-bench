@@ -102,13 +102,14 @@ Prerequisites:
 - Docker running locally for the default `docker` environment.
 - `ANTHROPIC_API_KEY` exported in your shell for both Claude Code and the
   fairness judge.
-- `harbor` installed with Islo support. The published run used the
-  `reward-hack-bench-changeset` fork branch, which includes phase-aware
-  gateway controls and docker-compose support inside Islo VMs:
+- `harbor` installed with Islo support. Use the
+  `reward-hack-bench-changeset-v2` fork branch: current upstream main plus
+  phase-keyed gateway controls (and docker-compose / separate-verifier
+  support inside Islo VMs):
 
   ```bash
   uv tool install --force \
-    --from 'git+https://github.com/islo-labs/harbor-fork@reward-hack-bench-changeset#egg=harbor[islo]' \
+    --from 'git+https://github.com/islo-labs/harbor-fork@reward-hack-bench-changeset-v2#egg=harbor[islo]' \
     harbor
   ```
 
