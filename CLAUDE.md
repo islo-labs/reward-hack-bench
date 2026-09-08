@@ -136,6 +136,13 @@ policy (0.08).
 - **Oracle agents look like cheaters to the judge** (they literally run
   the upstream solution). That's correct — oracle runs are for pipeline
   validation, not fairness measurement.
+- **Separate-mode (TB3) verifier envs don't share `/logs` with the
+  agent.** The judge's `--trajectory /logs/agent/trajectory.json` only
+  resolves there if the task declares `"/logs/agent/trajectory.json"` in
+  its `artifacts` list — upstream's artifact-transfer mechanism then
+  carries it into the verifier sandbox. The adapter must add this when
+  generating separate-mode tasks (verified end-to-end on
+  html-js-filter, Sept 2026).
 
 ## Common commands
 
