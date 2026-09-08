@@ -157,7 +157,8 @@ to the control column.
   key at verifier time; `-y` on `harbor run` auto-confirms the host-env
   passthrough.
 - Task name must be `org/name`; the adapter auto-namespaces `target_name`
-  under `reward-hack/` when no slash is present.
+  under `reward-hack-bench/` when no slash is present (the hub org the
+  tasks are published under).
 - A uv-bootstrap block is prepended to every injected `test.sh` so the judge
   can run even when the Dockerfile's uv install didn't survive into the
   runtime shell (islo Docker-in-VM doesn't preserve it).
