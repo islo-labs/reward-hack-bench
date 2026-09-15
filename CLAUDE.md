@@ -116,7 +116,14 @@ policy (0.08).
   can hang. Fix: `NODE_OPTIONS=--dns-result-order=ipv4first` in the agent
   Dockerfile. Applied in `datasets/cybench/ezmaze/environment/Dockerfile`.
 - **Task name must be `org/name`** — adapter auto-namespaces under
-  `reward-hack/` if the target_name has no slash.
+  `reward-hack-bench/` if the target_name has no slash (the org the tasks
+  are published under on the Harbor hub; dataset manifests pin sha256
+  digests that cover task.toml's name field).
+- **Full-manifest rebuilds dirty published tasks' generated files.**
+  `judge_template.py` evolves ahead of the judge.py copies baked into the
+  16 published tasks; since their hub digests pin content, restore those
+  files from HEAD after a rebuild (`git checkout HEAD --
+  datasets/reward-hack/*/tests/judge.py`) unless you intend to republish.
 - **uv bootstrap**: the adapter prepends a uv install-if-missing block to
   every generated test.sh because some sandbox environments (islo
   Docker-in-VM) don't preserve the Dockerfile's uv install into the
